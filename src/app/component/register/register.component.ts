@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,31 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
+class CustomValidator{
+//   static passwordContainNumber(control:AbstractControl):ValidationErrors{
+//     const regex = /\d/;
+
+//     if(regex.test(control.value)&&control.value !=null){
+//       return null;
+//     }else{
+//       return {passwordInvalid:true}
+//     }
+//   }
+
+//   static passwordMatch(control:AbstractControl):ValidationErrors{
+//     const password = control.get('password')?.value
+//     const confirmPassword = control.get('confirmPassword')?.value
+
+//     if(password==confirmPassword &&( password !==null && confirmPassword !==null)){
+//       return null
+
+//     }
+//     else{
+
+//     }
+
+//   }
+}
 
 @Component({
   selector: 'app-register',
@@ -20,7 +45,10 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [AuthanticationService],
 
 })
+
 export class RegisterComponent {
+ 
+ 
 
   registrationForm! : FormGroup
   constructor(private authService:AuthanticationService,private router:Router){}
