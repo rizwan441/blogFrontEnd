@@ -1,9 +1,17 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="">
   <mat-toolbar-row style="background-color: rgb(88, 88, 107);">
     <span class="example-spacer">Thired Child</span>
-    <a routerLink="/login" routerLinkActive="router-link-active"  >Login</a>
-    <a routerLink="/register" routerLinkActive="router-link-active" >Register</a>
-    <a  routerLink ='/admin'>Admin</a>
+    <!-- <a  routerLink ='/admin'>Admin</a> -->
+    <button mat-flat-button routerLink ='/user' style="margin-top:10px; width: 12%;" >User</button>
+
+     <button mat-flat-button routerLink ='/admin' style="margin-top:10px; width: 12%;" >Admin</button>
+    <mat-form-field style="margin-left: 20px; margin-top: 30px;" name="loginRegisterDropDown">
+      <mat-select placeholder="Login" (selectionChange)="navigateto($event.value)">
+        @for (entry of entriese; track entry) {
+          <mat-option [value]="entry.link">{{entry.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </mat-toolbar-row>
   
 </mat-toolbar>
