@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { User } from '../component/users/users.component';
 
 export interface UserData{
   item:[],
@@ -20,5 +21,14 @@ export class UserService {
       catchError(err=>throwError(err))
     )
   }
+  findByID(id:number):Observable<User>{
+    return this.httpClient.get<User>('http://localhost:3000/api/user/' + id).pipe(
+      map((user:User)=>user)
+    )
+  }
+
+
+
+  
   
 }
