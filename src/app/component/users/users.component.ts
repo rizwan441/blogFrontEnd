@@ -5,6 +5,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { tap, map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface User {
   id: number;
@@ -12,6 +13,7 @@ export interface User {
   username: string;
   email: string;
   role: string;
+  profileImage?:string
 }
 
 @Component({
@@ -31,7 +33,7 @@ export class UsersComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router:Router, private activateRoute:ActivatedRoute) {}
 
   ngOnInit(): void {
     this.initDataSource();
@@ -49,4 +51,15 @@ export class UsersComponent implements OnInit {
       })
     ).subscribe();
   }
+  navigateToProfile(id: number): void {
+    console.log(`Navigating to profile with ID: ${id}`);
+    this.router.navigate([`/user/${id}`]).then(success => {
+      if (success) {
+        console.log(`Navigation to /user/${id} successful`);
+      } else {
+        console.error(`Navigation to /user/${id} failed`);
+      }
+    });
+  }
+  
 }
