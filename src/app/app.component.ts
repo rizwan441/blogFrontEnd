@@ -4,6 +4,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
+import { link } from 'fs';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+HttpClientModule
 
 // interface Food {
 //   value: string;
@@ -12,9 +15,11 @@ import {MatSelectModule} from '@angular/material/select';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule,RouterOutlet,RouterLink,MatSelectModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule,RouterOutlet,RouterLink,MatSelectModule,HttpClientModule,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  
 })
 
 
@@ -31,6 +36,10 @@ export class AppComponent {
     {
       name:"Register",
       link:"register"
+    },
+    {
+      name:"Update-profile",
+      link:"updateprofile"
     }
    
   ];
