@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { JwtHelperService,  } from "@auth0/angular-jwt";
+import { isPlatformBrowser } from '@angular/common';
+
+
 
 
 export interface LoginForm{
@@ -14,12 +18,15 @@ export interface registrationForm{
   username:string
 }
 
+export   const AccessToken = "blog-token"
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthanticationService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,private jwtHelper:JwtHelperService, @Inject(PLATFORM_ID) private platformId: Object) {}
+
 
   login(loginForm:LoginForm): Observable<void> {
     return this.httpClient.post<{ accessToken: string }>(
@@ -29,7 +36,7 @@ export class AuthanticationService {
       }
     ).pipe(
       map((token: { accessToken: string }) => {
-        localStorage.setItem('blog-token', token.accessToken);
+        localStorage.setItem(AccessToken, token.accessToken);
       })
     );
   }
@@ -40,4 +47,13 @@ export class AuthanticationService {
       map((user)=>user)
     )
   }
+
+  isAuthenticated(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem(AccessToken);
+      return token ? !this.jwtHelper.isTokenExpired(token) : false;
+    }
+    return false; // Not running in the browser
+  }
+
 }

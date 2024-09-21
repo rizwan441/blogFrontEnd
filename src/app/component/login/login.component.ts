@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthanticationService } from '../../service/authantication.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 
@@ -16,12 +17,13 @@ import {MatButtonModule} from '@angular/material/button';
   imports: [HttpClientModule,ReactiveFormsModule,MatFormFieldModule,MatInputModule,MatButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  providers: [AuthanticationService],
+  providers: [AuthanticationService,JwtHelperService,HttpClientModule],
 
 })
 export class LoginComponent {
   loginForm!: FormGroup
   constructor(private authService:AuthanticationService,
+
     private router:Router
   ){}
 
